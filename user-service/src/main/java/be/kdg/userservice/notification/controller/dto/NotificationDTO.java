@@ -1,11 +1,10 @@
 package be.kdg.userservice.notification.controller.dto;
 
 import be.kdg.userservice.notification.model.NotificationType;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.Valid;
 
 @Data
 @AllArgsConstructor

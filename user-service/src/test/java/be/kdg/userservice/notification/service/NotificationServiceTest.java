@@ -8,20 +8,19 @@ import be.kdg.userservice.notification.service.api.NotificationService;
 import be.kdg.userservice.user.model.User;
 import be.kdg.userservice.user.persistence.UserRepository;
 import be.kdg.userservice.user.persistence.UserRoleRepository;
-import org.assertj.core.condition.Not;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class NotificationServiceTest extends UtilTesting {
     @Autowired
@@ -33,7 +32,7 @@ public class NotificationServiceTest extends UtilTesting {
     @Autowired
     private UserRoleRepository userRoleRepository;
 
-    @Before
+    @BeforeEach
     public void setup() {
         provideTestingData(userRepository, userRoleRepository);
     }

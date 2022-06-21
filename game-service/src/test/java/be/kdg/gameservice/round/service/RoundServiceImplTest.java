@@ -13,21 +13,20 @@ import be.kdg.gameservice.round.model.Phase;
 import be.kdg.gameservice.round.model.Round;
 import be.kdg.gameservice.round.persistence.RoundRepository;
 import be.kdg.gameservice.round.service.api.RoundService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class RoundServiceImplTest extends UtilTesting {
     @Autowired
@@ -39,7 +38,7 @@ public class RoundServiceImplTest extends UtilTesting {
     @Autowired
     private RoomService roomService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         provideTestDataRound(roundRepository);
     }
@@ -53,7 +52,7 @@ public class RoundServiceImplTest extends UtilTesting {
         assertEquals(Phase.PRE_FLOP, round.getCurrentPhase());
     }
 
-    @Test(expected = RoundException.class)
+    @Test
     public void saveActFail() throws RoundException {
         roundService.saveAct(testableRoundIdWithPlayers, testableUserId, ActType.RAISE, Phase.PRE_FLOP, 25, false);
         fail("Act should not be possible for this player at this time in the round.");
@@ -239,7 +238,7 @@ public class RoundServiceImplTest extends UtilTesting {
 
         int coinSum = round.getActivePlayers().stream().mapToInt(Player::getChipCount).sum() + round.getPot();
         roundService.distributeCoins(round.getId(), winner);
-        assertEquals(coinSum, round.getActivePlayers().stream().mapToInt(p -> p.getChipCount()).sum());
+        assertEquals(coinSum, round.getActivePlayers().stream().mapToInt(Player::getChipCount).sum());
     }
 
     @Test
@@ -306,6 +305,6 @@ public class RoundServiceImplTest extends UtilTesting {
 
         int coinSum = round.getActivePlayers().stream().mapToInt(Player::getChipCount).sum() + round.getPot();
         roundService.distributeCoins(round.getId(), winner);
-        assertEquals(coinSum, round.getActivePlayers().stream().mapToInt(p -> p.getChipCount()).sum());
+        assertEquals(coinSum, round.getActivePlayers().stream().mapToInt(Player::getChipCount).sum());
     }
 }

@@ -2,14 +2,14 @@ package be.kdg.gameservice.chat;
 
 import be.kdg.gameservice.shared.BaseController;
 import be.kdg.gameservice.shared.dto.MessageDTO;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 @Controller
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ChatSocketController extends BaseController {
     private final SimpMessagingTemplate template;
 

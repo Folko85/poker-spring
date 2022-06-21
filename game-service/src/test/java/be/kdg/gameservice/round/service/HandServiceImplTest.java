@@ -5,23 +5,19 @@ import be.kdg.gameservice.card.CardType;
 import be.kdg.gameservice.round.model.Hand;
 import be.kdg.gameservice.round.model.HandType;
 import be.kdg.gameservice.round.service.impl.HandServiceImpl;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class HandServiceImplTest {
     @Autowired
@@ -29,7 +25,7 @@ public class HandServiceImplTest {
 
     private List<Card> cards;
 
-    @Before
+    @BeforeEach
     public void setup() {
         cards = new ArrayList<>();
     }

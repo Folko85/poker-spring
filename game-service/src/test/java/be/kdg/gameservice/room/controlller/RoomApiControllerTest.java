@@ -10,22 +10,19 @@ import be.kdg.gameservice.room.persistence.RoomRepository;
 import be.kdg.gameservice.room.service.api.PrivateRoomService;
 import be.kdg.gameservice.room.service.api.RoomService;
 import com.google.gson.Gson;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @Transactional
 public class RoomApiControllerTest extends UtilTesting {
@@ -38,7 +35,7 @@ public class RoomApiControllerTest extends UtilTesting {
     @Autowired
     private PrivateRoomService privateRoomService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         provideTestDataPrivateRooms(roomRepository);
     }
@@ -83,7 +80,7 @@ public class RoomApiControllerTest extends UtilTesting {
         PrivateRoomDTO privateRoomDTO = new PrivateRoomDTO(0, "test private room", new GameRules(), new ArrayList<>(), new ArrayList<>());
         String json = new Gson().toJson(privateRoomDTO);
 
-        testMockMvc("/rooms/private",json, mockMvc, RequestType.POST);
+        testMockMvc("/rooms/private", json, mockMvc, RequestType.POST);
         assertEquals(privateRoomSize + 1, privateRoomService.getPrivateRooms(testableUserId).size());
     }
 

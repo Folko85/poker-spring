@@ -8,6 +8,7 @@ import be.kdg.userservice.shared.BaseController;
 import be.kdg.userservice.user.exception.UserException;
 import be.kdg.userservice.user.model.User;
 import be.kdg.userservice.user.service.api.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -67,7 +74,7 @@ public class NotificationApiController extends BaseController {
      * This api will sent a notification via a web socket to another person
      *
      * @param authentication Used for retrieving the user id of the current user.
-     * @param receiverId The person we need to send the notification to.
+     * @param receiverId     The person we need to send the notification to.
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/user/{receiverId}/send-notification")
@@ -98,7 +105,7 @@ public class NotificationApiController extends BaseController {
                     notificationDTO.getType(), "");
             NotificationDTO notificationOut = modelMapper.map(notification, NotificationDTO.class);
             firebaseApiGateway.sendMobileMessage(user.getId(), notificationOut);
-            this.template.convertAndSend("/user/receive-notification/" + user.getId() , notificationOut);
+            this.template.convertAndSend("/user/receive-notification/" + user.getId(), notificationOut);
         });
 
         //Send to other admins
@@ -156,7 +163,7 @@ public class NotificationApiController extends BaseController {
      */
     @PreAuthorize("hasRole('ROLE_USER')")
     @DeleteMapping("/user/notification")
-    public  ResponseEntity<Void> deleteNotifications(OAuth2Authentication authentication) throws UserException {
+    public ResponseEntity<Void> deleteNotifications(OAuth2Authentication authentication) throws UserException {
         logIncomingCall("sendPublicNotification");
         String userId = getUserId(authentication);
         notificationService.deleteAllNotifications(userId);

@@ -7,21 +7,21 @@ import be.kdg.userservice.user.model.UserRole;
 import be.kdg.userservice.user.persistence.UserRepository;
 import be.kdg.userservice.user.persistence.UserRoleRepository;
 import be.kdg.userservice.user.service.api.UserService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.List;
 
-import java.util.*;
-
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 @Transactional
 public class UserServiceTest extends UtilTesting {
     @Autowired
@@ -31,7 +31,7 @@ public class UserServiceTest extends UtilTesting {
     @Autowired
     private UserService userService;
 
-    @Before
+    @BeforeEach
     public void setup() {
         provideTestingData(userRepository, userRoleRepository);
     }

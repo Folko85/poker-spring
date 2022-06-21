@@ -7,8 +7,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.Valid;
-
 /**
  * A simple configuration class that is used to create a bean of the modelmapper.
  */
@@ -26,5 +24,7 @@ public class WebConfig {
     }
 
     @Bean
-    public RestTemplate restTemplate() { return new RestTemplate(); }
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 }
