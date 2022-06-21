@@ -1,0 +1,12 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'poker'
+
+include 'user-service'
+include 'game-service'
+include 'mobile-client'
+include 'web-client'
